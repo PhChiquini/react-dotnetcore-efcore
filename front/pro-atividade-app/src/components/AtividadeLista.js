@@ -8,8 +8,8 @@ export default function AtividadeLista(props) {
           <Atividade
             key={atividade.id}
             atividade={atividade}
-            deletarAtividade={props.deletarAtividade}
             pegarAtividade={props.pegarAtividade}
+            toggleConfirmDeleteModal={props.toggleConfirmDeleteModal}
           />
         ))}
       </div>

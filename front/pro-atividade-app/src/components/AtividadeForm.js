@@ -23,13 +23,13 @@ export default function AtividadeForm(props) {
         setAtividade({ ...atividade, [name]: value });
     };
 
-    const handleSubmit = ((e) =>{
+    const handleSubmit = ((e) => {
         e.preventDefault();
 
         if (props.atividadeSelecionada.id !== 0) {
             props.atualizarAtividade(atividade);
         }
-        else{
+        else {
             props.addAtividade(atividade)
         }
     });
@@ -53,7 +53,7 @@ export default function AtividadeForm(props) {
 
     return (
         <div>
-            <h1>Atividade{atividade.id !== 0 ? ' ' + atividade.id : 's'}</h1>
+
             <form className='row g-3' onSubmit={handleSubmit}>
                 <div className='col-md-6'>
                     <label className='form-label'>Título</label>
@@ -73,10 +73,10 @@ export default function AtividadeForm(props) {
                         onChange={inputTextHandler}
                         value={atividade.prioridade}
                         className='form-select'>
-                        <option defaultValue="0">Selecionar...</option>
-                        <option value="1">Baixa</option>
-                        <option value="2">Normal</option>
-                        <option value="3">Alta</option>
+                        <option defaultValue="NaoDefinido">Selecionar...</option>
+                        <option value="Baixa">Baixa</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Alta">Alta</option>
                     </select>
                 </div>
                 <div className='col-md-12'>
@@ -91,24 +91,21 @@ export default function AtividadeForm(props) {
                 </div>
                 <hr />
                 <div className='col-12'>
+
+                    <button type="submit" className='btn btn-outline-success me-2'>
+                        <i className="fas fa-check me-2"></i>
+                        Salvar
+                    </button>
                     {
-                        atividade.id === 0 ?
-                            <button type="submit" className='btn btn-outline-secondary'>
-                                <i className="fas fa-plus me-2"></i>
-                                Atividade
-                            </button>
-                            :
+                        atividade.id !== 0 ?
                             <>
-                                <button type="submit" className='btn btn-outline-success me-2'>
-                                    <i className="fas fa-check me-2"></i>
-                                    Salvar
-                                </button>
                                 <button onClick={handleCancelar} className='btn btn-outline-warning me-2'>
                                     <i className="fas fa-xmark me-2"></i>
                                     Cancelar
                                 </button>
                             </>
-
+                            :
+                            <></>
                     }
                 </div>
             </form>

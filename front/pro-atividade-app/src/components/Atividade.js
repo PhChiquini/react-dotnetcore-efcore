@@ -2,26 +2,13 @@ import React from "react";
 
 export default function Atividade(props) {
 
-    function prioridadeLabel(param) {
-        switch (param) {
-            case "1":
-                return 'Baixa'
-            case "2":
-                return 'Normal'
-            case "3":
-                return 'Alta'
-            default:
-                return 'Não definido'
-        }
-    }
-
     function prioridadeIcon(param) {
         switch (param) {
-            case "1":
+            case "Baixa":
                 return 'smile'
-            case "2":
+            case "Normal":
                 return 'meh'
-            case "3":
+            case "Alta":
                 return 'frown'
             default:
                 return 'Não definido'
@@ -30,11 +17,11 @@ export default function Atividade(props) {
 
     function prioridadeStyle(param) {
         switch (param) {
-            case "1":
+            case "Baixa":
                 return 'success'
-            case "2":
+            case "Normal":
                 return 'black'
-            case "3":
+            case "Alta":
                 return 'warning'
             default:
                 return 'Não definido'
@@ -53,7 +40,7 @@ export default function Atividade(props) {
                         Prioridade:
                         <span className={'ms-1 text-' + prioridadeStyle(props.atividade.prioridade)}>
                             <i className={'me-1 far fa-' + prioridadeIcon(props.atividade.prioridade)}></i>
-                            {prioridadeLabel(props.atividade.prioridade)}
+                            {props.atividade.prioridade}
                         </span>
                     </h6>
                 </div>
@@ -67,7 +54,7 @@ export default function Atividade(props) {
                         Editar
                     </button>
                     <button className='btn btn-sm btn-outline-danger'
-                        onClick={() => props.deletarAtividade(props.atividade.id)}>
+                        onClick={() => props.toggleConfirmDeleteModal(props.atividade.id)}>
                         <i className='fas fa-trash me-2' />
                         Deletar
                     </button>
