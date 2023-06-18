@@ -6,7 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using ProAtividade.API.Data;
+using ProAtividade.Data.Context;
+using ProAtividade.Data.Repositores;
+using ProAtividade.Domain.Interfaces.Repositories;
+using ProAtividade.Domain.Interfaces.Services;
+using ProAtividade.Domain.Services;
 
 namespace ProAtividade.API
 {
@@ -25,14 +29,22 @@ namespace ProAtividade.API
             services.AddDbContext<DataContext>(
                 options => options.UseSqlite(Configuration.GetConnectionString("Default"))
             );
+
+            services.AddScoped<IAtividadeRepo, AtividadeRepo>();
+            services.AddScoped<IGeneralRepo, GeneralRepo>();
+            services.AddScoped<IAtividadeService, AtividadeService>();
+
             services.AddControllers()
-                    .AddJsonOptions(options => {
+                    .AddJsonOptions(options =>
+                    {
                         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                     });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProAtividade.API", Version = "v1" });
             });
+
             services.AddCors();
         }
 
